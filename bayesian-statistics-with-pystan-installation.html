@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="/theme/pygments/github.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/solid.css">
+
+
+    <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="My test blog Atom">
+
+
+
+
+
+<meta name="author" content="sicong" />
+<meta name="description" content="A Short Introduction to Bayesian Statistics This is the first in a part tutorial, part study notes, part rumination series on doing Bayesian Statistics with PyStan. Bayesian statistics is a fascinating paradigm of statistics that takes on a subjective interpretation of probability, in contrast to the Frequentist statistics which is …" />
+<meta name="keywords" content="Bayesian, Python">
+
+
+<meta property="og:site_name" content="My test blog"/>
+<meta property="og:title" content="Bayesian Statistics With PyStan - Installation"/>
+<meta property="og:description" content="A Short Introduction to Bayesian Statistics This is the first in a part tutorial, part study notes, part rumination series on doing Bayesian Statistics with PyStan. Bayesian statistics is a fascinating paradigm of statistics that takes on a subjective interpretation of probability, in contrast to the Frequentist statistics which is …"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/bayesian-statistics-with-pystan-installation.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2021-07-11 17:36:00+00:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="/author/sicong.html">
+<meta property="article:section" content="Tutorials"/>
+<meta property="article:tag" content="Bayesian"/>
+<meta property="article:tag" content="Python"/>
+<meta property="og:image" content="">
+
+  <title>My test blog &ndash; Bayesian Statistics With PyStan - Installation</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="">
+        <img src="/theme/img/profile.png" alt="" title="">
+      </a>
+
+      <h1>
+        <a href=""></a>
+      </h1>
+
+
+
+      <nav>
+        <ul class="list">
+
+
+              <li>
+                <a target="_self"
+                   href="/pages/about-me.html#about-me">
+                  About Me
+                </a>
+              </li>
+
+        </ul>
+      </nav>
+
+      <ul class="social">
+          <li>
+            <a  class="sc-You ajwidoajwdiks in your config file" href="#" target="_blank">
+              <i class="fab fa-You ajwidoajwdiks in your config file"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-Another social link" href="#" target="_blank">
+              <i class="fab fa-Another social link"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="bayesian-statistics-with-pystan-installation">Bayesian Statistics With PyStan - Installation</h1>
+    <p>
+      Posted on Sun 11 July 2021 in <a href="/category/tutorials.html">Tutorials</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="section" id="a-short-introduction-to-bayesian-statistics">
+<h2>A Short Introduction to Bayesian Statistics</h2>
+<p>This is the first in a part tutorial, part study notes, part rumination series on doing Bayesian Statistics with PyStan.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Bayesian_statistics">Bayesian statistics</a> is a fascinating paradigm of statistics that
+takes on a subjective interpretation of probability, in contrast to the <a class="reference external" href="https://en.wikipedia.org/wiki/Frequentist_probability">Frequentist statistics</a>
+which is supposed to offer a more &quot;objective&quot; view.</p>
+<p>This claim that Bayes is &quot;subjective&quot; makes more sense in the context of an inference problem. Suppose we want to model
+some stochastic process with a model M, which depends on parameters P. And we observe some raw data, D. We then want to
+estimate / infer the parameters P from the raw data D.</p>
+<p>The Frequentist approach assumes that there is one true, fixed parameter value for P, and our job is to approach this
+ideal from the noisy and uncertain data D. However, the Bayesians instead assumes that P itself is uncertain whereas the
+data D is treated as fixed. The best we can do is to collect more fixed data, to reduce our uncertainty in P.</p>
+<p>Furthermore, the Bayes approach is grounded firmly in the single most important corner stone in probability theory - the
+Bayes' theorem</p>
+<div class="math">
+\begin{equation*}
+P(A \vert B) = \frac{P(A) * P(B \vert A)} {P(B)}
+\end{equation*}
+</div>
+<p>In the context of inference, this turns into:</p>
+<div class="math">
+\begin{equation*}
+P(Parameter \vert Data) = \frac{P(Parameter) * P(Data \vert Parameter)} {P(Data)}
+\end{equation*}
+</div>
+<p>Where</p>
+<p><span class="math">\(P(Parameter \vert Data)\)</span>, probability distribution of the Parameter given observed Data, is called the <strong>posterior</strong> distribution,
+and is the goal of Bayes inference.</p>
+<p><span class="math">\(P(Data \vert Parameter)\)</span> is called the <strong>likelihood</strong>. This is the data generation process and is usually the main process that
+we want to model.</p>
+<p><span class="math">\(P(Parameter)\)</span> is the <strong>prior</strong>. This is the probability of the Parameter before Data is observed, hence why &quot;prior&quot;,
+as in a priori knowledge / belief about the Parameter. This is the controversial bit of Bayes and is partly the reason why Bayes is said to be
+&quot;subjective&quot;. Because the need for a prior implies that all parameters are fundamentally biased. There doesn't exist an ideal
+where objective data alone gives us all the answer we want; the answer itself is always going to be tainted by some subjective
+belief, the prior. All we can do is to weaken its influence with more data.</p>
+<p><span class="math">\(P(Data)\)</span> is the <strong>denominator</strong>, sometimes called <strong>marginal likelihood</strong>. It's merely a normalization factor that
+normalizes the numerator so that it remains a valid probability distribution. However, this is the main reason why exact Bayes inference
+is hard.</p>
+</div>
+<div class="section" id="bayes-statistics-and-computational-methods">
+<h2>Bayes Statistics and Computational Methods</h2>
+<p>As stated above, the troublemaker is the denominator, because for continuous variables, it may involve <em>multi-parameter integration</em>,
+which can be very difficult to calculate if not intractable. We could use another technique called <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior">conjugate priors</a>
+to circumvent the issue. Nonetheless, this puts a restriction on what type of distributions we can use and thus only solves
+the issue for special cases.</p>
+<p>Enter <a class="reference external" href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov Chain Monte Carlo (MCMC)</a>, a sampling-based computational
+method to estimate the posterior. This topic deserves a post on its own. In short, instead of calculating the exact posterior
+distribution, we &quot;sample&quot; from it, whose denominator we can ignore as its shape is governed by the numerator (prior * likelihood).
+The exact algorithm varies across different <em>implementations</em> of MCMC, the popular ones including <strong>Random Walk Metropolis</strong>,
+<strong>Gibbs Sampling</strong> and <strong>Hamiltonian Monte Carlo</strong>. However the principle is the same: we use <em>local decision rules</em>
+to accept or reject a sample point before moving on to the next one, so that <em>globally</em> the distribution of the samples we accept,
+follows the posterior distribution.</p>
+</div>
+<div class="section" id="stan-pystan">
+<h2>Stan, PyStan</h2>
+<p><a class="reference external" href="https://mc-stan.org/">Stan</a> is a state-of-the-art platform for statistical modeling and high-performance statistical computation.
+It implements a very fast MCMC sampling method called NUTS (No-U-Turn-Sampler) and interfaces with many languages like R,
+Python MATLAB and so on.</p>
+<p>For this series I will try using Stan with Python via the <a class="reference external" href="https://github.com/stan-dev/pystan">PyStan3</a> open-source python package.</p>
+</div>
+<div class="section" id="how-to-install-pystan">
+<h2>How to Install PyStan</h2>
+<p>PyStan has its <a class="reference external" href="https://pystan.readthedocs.io/en/latest/">official guide</a>.</p>
+<p>The system requirements for the installation include:</p>
+<ul class="simple">
+<li>Python ≥3.7</li>
+<li>Linux or macOS</li>
+<li>x86-64 CPU</li>
+<li>C++ compiler: gcc ≥9.0 or clang ≥10.0</li>
+</ul>
+<p>To install, simply use pip:</p>
+<pre class="literal-block">
+python3 -m pip install pystan
+</pre>
+<div class="section" id="common-problems">
+<h3>Common Problems</h3>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>RuntimeError when using pystan in Jupyter Notebook</dt>
+<dd><p class="first">There is a known error with using pystan3 in Jupyter Notebook. See <a class="reference external" href="https://pystan.readthedocs.io/en/latest/faq.html">the FAQ session</a>
+of the official guide:</p>
+<pre class="literal-block">
+RuntimeError: asyncio.run() cannot be called from a running event loop when running stan.build(...)
+</pre>
+<p>This is because pystan3 relies on asyncio and Jupyter Notebook blocks some of its functionalities.</p>
+<p>To solve this:</p>
+<ol class="last arabic">
+<li><p class="first">Install nest-asyncio</p>
+</li>
+<li><p class="first">Run this before importing pystan in your notebook:</p>
+<pre class="literal-block">
+import nest_asyncio
+nest_asyncio.apply()
+</pre>
+</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Stay tuned for more to come!</p>
+</div>
+</div>
+<script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="/tag/bayesian.html">Bayesian</a>
+      <a href="/tag/python.html">Python</a>
+    </p>
+  </div>
+
+
+
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " My test blog ",
+  "url" : "",
+  "image": "",
+  "description": ""
+}
+</script>
+
+
+</body>
+</html>
