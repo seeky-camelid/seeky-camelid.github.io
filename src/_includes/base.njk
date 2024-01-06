@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ '/css/style.css' | url }}" />
+  </head>
+  <body id="nightModeDiv" class="">
+    {% include "components/navbar.njk" %}
+      <main>{{ content | safe }}</main>  <!-- Safe filter:  Also note that we don’t want to double-escape the output, so we’re using the provided Nunjucks safe filter here: https://www.11ty.dev/docs/layouts/ -->
+    {% include "components/footer.njk" %}
+    <script src="{{ '/js/script.js' }}" type="text/javascript"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,18 @@
+__pycache__
+
+# Generated files
+package/generated*
+package-lock.json
+
+# Ignore installed npm modules
+node_modules/
+
+# Ignore folders from source code editors
+.vscode
+
+# Ignore eleventy output when doing manual tests
+_site/
+build/
+
+# Ignore test files
+.cache

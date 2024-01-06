@@ -1,0 +1,30 @@
+{
+  "name": "seeky-camelid.blogs",
+  "version": "1.0.0",
+  "description": "SiCong's blogs",
+  "main": "index.js",
+  "scripts": {
+    "_comment": "All scripts here can be run as npm <command>. e.g. npm start",
+    "watch:sass": "node-sass --watch src/sass -o src/css",
+    "watch:eleventy": "eleventy --serve",
+    "build:sass": "node-sass src/sass -o src/css",
+    "build:eleventy": "eleventy",
+    "start": "npm-run-all build:sass --parallel watch:*",
+    "build": "npm-run-all build:sass --parallel build:*",
+    "deploy": "gh-pages -d build"
+  },
+  "keywords": [
+    "11ty",
+    "SASS",
+    "SCSS",
+    "eleventy"
+  ],
+  "author": "SiCong",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "gh-pages": "^6.1.1",
+    "node-sass": "^9.0.0",
+    "npm-run-all": "^4.1.5"
+  }
+}
