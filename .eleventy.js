@@ -11,6 +11,8 @@ module.exports = function(eleventyConfig) {
     dir: {
       input: "src",     // Site input including all markdown content
       output: "build"   // Generated site output
-    }
+    },
+    markdownTemplateEngine: "njk", // Use nunjucks as template engine (default was liquid)
+    htmlTemplateEngine: "njk"      // Use nunjucks as template engine (default was liquid)
   }
 };

@@ -10,6 +10,7 @@
     {% include "components/navbar.njk" %}
     <div class="article-wrapper">
       <h1>{{title}}</h1>
+      <p> {{page.date.toDateString() }} </p>
       <article class="paragraph text-lg">{{ content | safe }}</article>
     </div>
     {% include "components/footer.njk" %}

@@ -10,7 +10,7 @@ layout: base.njk
     {% for post in collections.post  %}
       <a href='{{post.url}}' class="blog-single">
         <p class="title">{{ post.data.title }}</p>
-
+        <p >{{ post.date.toDateString() }}</p>
         <p class="description">{{ post.data.description }}</p>
       </a>
     {% endfor %}
