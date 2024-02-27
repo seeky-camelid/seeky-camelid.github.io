@@ -31,3 +31,10 @@ Global config file: .eleventy.js
 
 # Notes
 The pair of --- --- in every template / document is called the "front matter": https://www.11ty.dev/docs/data-frontmatter/
+
+## Add both last modified and published dates
+Taking inspirations from this answer: https://github.com/11ty/eleventy/issues/869#issuecomment-767986086
+
+With some help from MS copilot, I installed the child_process npm package, to use git in a shell command to get the last commit and first commit date.
+
+I also decided to use a filter instead of shortcode, for easier chaining with further filters.

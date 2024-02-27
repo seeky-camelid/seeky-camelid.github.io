@@ -6,11 +6,13 @@ layout: base.njk
   <h1>Blog</h1>
   
   <div class="blog-list">
-
     {% for post in collections.post  %}
-      <a href='{{post.url}}' class="blog-single">
+      <a href='{{post.page.url}}' class="blog-single">
         <p class="title">{{ post.data.title }}</p>
-        <p >{{ post.date.toDateString() }}</p>
+        <div style="display: flex; justify-content: space-between;">
+          <span>Published: {{ post.page.inputPath | firstCommitDate | htmlDateString }}</span>
+          <span>Last Modified: {{ post.page.inputPath | lastCommitDate | htmlDateString }}</span>
+        </div>
         <p class="description">{{ post.data.description }}</p>
       </a>
     {% endfor %}
