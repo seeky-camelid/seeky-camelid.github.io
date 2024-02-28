@@ -23,8 +23,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter('lastCommitDate', function (file) {
     try {
       const command = `git log --pretty=format:"%ad" --date=short -- ${file} | head -1`;
-      const firstCommitDate = execSync(command).toString().trim();
-      return firstCommitDate;
+      const lastCommitDate = execSync(command).toString().trim();
+      return lastCommitDate;
     } catch (error) {
       console.error(`Error getting first commit date for file ${file}:`, error);
       return '';

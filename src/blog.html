@@ -9,8 +9,9 @@ layout: base.njk
     {% for post in collections.post | reverse %}
       <a href='{{post.page.url}}' class="blog-single">
         <p class="title">{{ post.data.title }}</p>
-        <div style="display: flex; justify-content: space-between;">
+        <div class="paragraph text-sm" >
           <span>Published: {{ post.page.inputPath | firstCommitDate | htmlDateString }}</span>
+          |
           <span>Last Modified: {{ post.page.inputPath | lastCommitDate | htmlDateString }}</span>
         </div>
         <p class="description">{{ post.data.description }}</p>
