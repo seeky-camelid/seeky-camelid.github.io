@@ -8,6 +8,7 @@
   </head>
   <body id="nightModeDiv">
     {% include "components/navbar.njk" %}
+    <main>
     <div class="article-wrapper">
       <h1>{{title}}</h1>
       <div style="display: flex; justify-content: space-between;">
@@ -16,6 +17,7 @@
       </div>
       <article class="paragraph text-lg">{{ content | safe }}</article>
     </div>
+    </main>
     {% include "components/footer.njk" %}
     <script src="{{ '/js/script.js' | url }}"></script>
     
