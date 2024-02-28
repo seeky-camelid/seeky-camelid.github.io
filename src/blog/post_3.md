@@ -2,6 +2,16 @@
 title: "Paper notes: TinyStories: How Small Can Language Models Be and Still Speak Coherent English?"
 ---
 
+In terms of neural network models, the two size extremes: the gargantuan and the infinitesimal, are both where the cutting edge research is interested in. 
+
+I recently came across an interesting small language model (SLM) called TinyStories because of work: 
+
+Model card (33M variant): [TinyStories-33M](https://huggingface.co/roneneldan/TinyStories-33M)
+
+Paper: [TinyStories: How Small Can Language Models Be and Still Speak Coherent English?](https://arxiv.org/abs/2305.07759) (Eldan and Li, 2023)
+
+This post are some rough notes.
+
 # Main contributions:
 
 ## A new dataset(s) for SLM
