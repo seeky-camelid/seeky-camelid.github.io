@@ -132,5 +132,8 @@ body {
     width: 90%; }
   body main {
     width: 90%; }
+  body .article-wrapper {
+    width: 90%;
+  }
   body footer {
     width: 90%; } }
