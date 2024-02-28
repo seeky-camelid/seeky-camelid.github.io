@@ -2,7 +2,7 @@
 title: "Musing: Embodied AI may require lifelong, online learning"
 ---
 
-Some half reflective, half predicting rambling, mainly targeted at my ideal embodied agent vs the current mainstream foundation models.
+Half reflecting, half predicting, mainly targeted at my ideal embodied agent vs the current mainstream foundation models.
 
 I think training / retraining a model offline on curated datasets then deploying it statically will be a thing of the past, at least for embodied agents that are meant to interact with the real world.
 
