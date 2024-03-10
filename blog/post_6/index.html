@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unity3D Collaboration Using Git</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body id="nightModeDiv">
+    <header>
+  <nav>
+    <p class="logo">Just a thought</p>
+  
+    <div class="nav-list">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <button id="nightModeButton" class="night-mode-btn">
+        <svg style="width: 20px;" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+          <g>
+            <g>
+              <path d="m275.4,500.7c-135,0-244.7-109.8-244.7-244.7 1.06581e-14-134.9 109.8-244.7 244.7-244.7 8.2,0 16.4,0.4 24.6,1.2 7.2,0.7 13.5,5.2 16.5,11.7s2.4,14.2-1.6,20.2c-23,33.8-35.2,73.3-35.2,114.2 0,105 78.7,192.2 183.2,202.6 7.2,0.7 13.5,5.2 16.5,11.7 3.1,6.5 2.4,14.2-1.6,20.2-45.8,67.4-121.4,107.6-202.4,107.6zm-12.5-448c-106.5,6.5-191.2,95.2-191.2,203.3 1.42109e-14,112.3 91.4,203.7 203.7,203.7 56.4,0 109.6-23.4 147.8-63.7-46.2-11.7-88.1-36.8-120.8-72.6-41.1-45.2-63.8-103.6-63.8-164.6 0.1-37.1 8.4-73.2 24.3-106.1z"/>
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  
+</header>
+    <div class="article-wrapper">
+      <h1>Unity3D Collaboration Using Git</h1>
+      <div class="paragraph text-sm" >
+        <span>Published: Sun, Mar 10, 2024</span>
+        |
+        <span>Last Modified: Sun, Mar 10, 2024</span>
+      </div>
+      <article class="paragraph text-md"><p>Collaborating in Unity3D has always been a headache for me, mainly because of the extra difficulty that comes with <strong>version control</strong>.</p>
+<p>I have used Unity's default VC: Plastic. But I still find it more comfortable to use what I'm already familiar with: Git.</p>
+<p>However, Git with Unity3D comes with its own set of challenges. This blog lists some of the my tips.</p>
+<h2>Use the Right Git Ignore File</h2>
+<p><a href="https://github.com/github/gitignore/blob/main/Unity.gitignore">gitignore for unity</a></p>
+<h2>Manage Merge Conflicts</h2>
+<p>Generally speaking, merge conflicts tend to happen when multiple people try to edit the same file.</p>
+<p>Changing the same C# script files is usually not an issue, since git can perform auto-merge pretty well. In the worst case scenarios, resolving code conflicts is not too bad since it's at least readable.</p>
+<p>However, simultaneously changing anything else in the Unity project is problematic, especially the <strong>scene files (.unity, .prefab, etc.)</strong> since the unity YAML file format is rather cryptic (having a better understand of the <a href="https://docs.unity3d.com/Manual/TextSceneFormat.html">Unity Text Scene Format</a> can help)</p>
+<p>Therefore, the main idea throughout this section is: <strong>avoid changing the same scene files at the same time</strong>.</p>
+<p>But there are times when we have to change the same scene file, which is why <strong>it's very important to set up the Smart Merge Tool first</strong></p>
+<h3>Strongly Recommended: Set up Smart Merge Tool for Git</h3>
+<h4>Step 1: Set up UnityYAMLMerge for git</h4>
+<p>Unity is shipped with the <strong>UnityYAMLMerge</strong> tool, which has a semantic understanding of the scene files (.unity, .prefab), and can perform automatic smart merge most of the time.</p>
+<p>The setup guide can be found here: https://docs.unity3d.com/Manual/SmartMerge.html</p>
+<blockquote>
+<p><strong><em>NOTE:</em></strong>
+The guide only lists where to find UnityYAMLMerge binary on Windows and MacOS.</p>
+<p>For Linux users, you can first find the path to one installed editor  by going to the UnityHub → Installs</p>
+<p>Then the path to the binary is usually: <PathToEditor>/Editor/Data/Tools/UnityYAMLMerge</p>
+</blockquote>
+<blockquote>
+<p><strong><em>NOTE:</em></strong>
+The guide above instructs to add this line to the .git/config:</p>
+<pre><code class="language-bash">  cmd = '&lt;path to UnityYAMLMerge&gt;' merge -p &quot;$BASE&quot; &quot;$REMOTE&quot; &quot;$LOCAL&quot; &quot;$MERGED&quot;
+</code></pre>
+<p>However, it should really be:</p>
+<pre><code class="language-bash">  cmd = '&lt;path to UnityYAMLMerge&gt;' merge -p &quot;$BASE&quot; &quot;$LOCAL&quot; &quot;$REMOTE&quot; &quot;$MERGED&quot;
+</code></pre>
+<p>My experiences so far with the tool leads me to believe that there's a typo in UnityYAMLMerge's help message: local should be passed to &quot;left&quot; file and remote be passed to &quot;right&quot;.</p>
+</blockquote>
+<h4>Step 2: Set up fallback merge tool for UnityYAMLMerge</h4>
+<p>In case UnityYAMLMerge fails to perform auto-merge (this is less likely to happen with the tool's smart merge), some manual resolution is needed.</p>
+<p>Many tools can be used to resolve it. Here's an example with the open source, cross-platform tool: <a href="https://meldmerge.org/">meld</a>.</p>
+<p>You need to edit the file <em><PathToEditor>/Editor/Data/Tools/mergespecfile.txt</em></p>
+<pre><code class="language-bash">...
+ 
+unity use &quot;&lt;PathToMeld, e.g. /usr/bin/meld&gt;&quot; &quot;%l&quot; &quot;%b&quot; &quot;%r&quot; --output &quot;%d&quot;
+prefab use &quot;&lt;PathToMeld&gt;&quot; &quot;%l&quot; &quot;%b&quot; &quot;%r&quot; --output &quot;%d&quot;
+ 
+...
+</code></pre>
+<p>This places the left/local version in the left pane, the common base (of local and remote) version in the middle, the right/remote version version in the right pane, and it writes the result to the local merged version.</p>
+<p>For details see both UnityYAMLMerge --help and meld --help</p>
+<h3>Merge Conflicts Resolution Flow</h3>
+<p>Assuming we're using a merge flow instead of a rebase flow:</p>
+<ol>
+<li>
+<p>Create a merge request to merge your branch into main branch on github/gitlab</p>
+</li>
+<li>
+<p>Merge conflicts encountered!!</p>
+</li>
+<li>
+<p>If conflicts involve scene files (.unity, .prefab), <strong>must choose to resolve locally</strong>:</p>
+</li>
+</ol>
+<pre><code class="language-bash"># Get latest main
+git checkout main
+git pull
+ 
+# Try to merge main into task_branch (!!Important, not the other way round!!)
+git checkout task_branch
+git merge main
+</code></pre>
+<ol start="4">
+<li>UnityYAMLMerge does its thing</li>
+</ol>
+<p>At this stage, the UnityYAMLMerge should be able to automatically resolve conflicts. If so, go directly to stage 6</p>
+<ol start="5">
+<li>Perform manual resolution</li>
+</ol>
+<p>If UnityYAMLMerge fails, manually resolve the conflicts</p>
+<ol start="6">
+<li>Commit merge resolution and push to remote</li>
+</ol>
+<pre><code class="language-bash"># While on task_branch
+git merge --continue
+git push origin task_branch
+</code></pre>
+<ol start="7">
+<li>Continue with the merge request (now conflict free)</li>
+</ol>
+<h3>Other tips</h3>
+<h4>Tip 1: Structure the project so that it can be easily split up into independent parts</h4>
+<h5>Tip 1.1: Use prefab as much as possible</h5>
+<p>The idea is to try prefab everything in the scene. Then if someone needs to change a part of the scene, they only need to change the prefab file.</p>
+<h5>Tip 1.2: Try additive scene loading</h5>
+<p><a href="https://docs.unity3d.com/ScriptReference/SceneManagement.LoadSceneMode.Additive.html">Additive scene loading</a> allows us to split a scene into multiple ones, e.g. one for UI, one for level 1, one for level 2 etc. Then at run time, load them additively into a single final scene.</p>
+<h4>Tip 2: Structure the tasks so that they can be worked on independently</h4>
+<p>Try to structure the tasks so that each task has minimal co-dependency with other tasks.</p>
+<h4>Tip 3: Communicate when critical shared files (e.g. main scene) need to be changed extensively</h4>
+<p>Communication is the key. Inform others before you need to make big changes to the project that touch multiple shared (critical) files.</p>
+</article>
+    </div>
+    <footer>
+</footer>
+    <script src="/js/script.js"></script>
+    
+  </body>
+</html>

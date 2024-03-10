@@ -35,21 +35,21 @@
         |
         <span>Last Modified: Wed, Feb 28, 2024</span>
       </div>
-      <article class="paragraph text-lg"><p>In terms of neural network models, the two size extremes: the gargantuan and the infinitesimal, are both where the cutting edge research is interested in.</p>
+      <article class="paragraph text-md"><p>In terms of neural network models, the two size extremes: the gargantuan and the infinitesimal, are both where the cutting edge research is interested in.</p>
 <p>I recently came across an interesting small language model (SLM) called TinyStories because of work:</p>
 <p>Model card (33M variant): <a href="https://huggingface.co/roneneldan/TinyStories-33M">TinyStories-33M</a></p>
 <p>Paper: <a href="https://arxiv.org/abs/2305.07759">TinyStories: How Small Can Language Models Be and Still Speak Coherent English?</a> (Eldan and Li, 2023)</p>
 <p>This post are some rough notes.</p>
-<h1>Main contributions:</h1>
-<h2>A new dataset(s) for SLM</h2>
+<h2>Main contributions:</h2>
+<h3>A new dataset(s) for SLM</h3>
 <p>Uses GPT3.5 and GPT4 to generate a synthetic dataset TinyStories that are 2-3 paragraphs of short stories using vocabulary a 3-4 year old can understand.
 Additionally trained a variant TinyStories-Instruct, which can be used for instruction following (e.g. summarising texts)</p>
-<h2>Pretrained SLM</h2>
+<h3>Pretrained SLM</h3>
 <p>Trains a range of SLM (small language models) ranging from 1 transformer layer, 1M params to 4 layers, 33M params. They generate more coherent English texts than larger models like GPT-2 or GPT-Neo (100M and above)</p>
 <p>This showed that smaller models can still learn language and have emergence properties (factual knowledge, reasoning, context tracking), but only if trained on simpler texts.</p>
-<h2>New Language Model Evaluation paradigm</h2>
+<h3>New Language Model Evaluation paradigm</h3>
 <p>Introduces a paradigm of evaluation (small) language models using larger LMs like GPT4, which can have a richer scoring scheme than existing benchmarks for LMs</p>
-<h2>Suggestive evidence on interpretability of SLM</h2>
+<h3>Suggestive evidence on interpretability of SLM</h3>
 <p>Suggests that smaller models like these are more interpretable than larger models. They also include some preliminary findings (only suggestive):</p>
 <ul>
 <li>Model width (embedding size) impacts syntax, grammar and factual knowledge more</li>
@@ -66,7 +66,7 @@ Additionally trained a variant TinyStories-Instruct, which can be used for instr
 </ul>
 </li>
 </ul>
-<h2>Suggestive evidence on hyperparameter tuning</h2>
+<h3>Suggestive evidence on hyperparameter tuning</h3>
 <p>Suggests smaller models can be used for hyperparameter tuning
 Found some evidence to back up the polynomial scaling law between the model size and learning budget for LLMs</p>
 </article>
