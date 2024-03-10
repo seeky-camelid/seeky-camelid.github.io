@@ -39,6 +39,12 @@ With some help from MS copilot, I installed the child_process npm package, to us
 
 I also decided to use a filter instead of shortcode, for easier chaining with further filters.
 
+## Use h2 (second-rank heading) for headings inside an article
+
+Inside an article /post, use "## heading" instead of "# heading" as the top level headings. This is because:
+1. h1 is used for the title of the article
+2. For some compatibility reasons, h1 and h2 look exactly the same inside the <article> selector. See [here](https://stackoverflow.com/a/51321157)
+
 # Some great AI blogs
 
 https://github.com/antoinebrl/awesome-ml-blogs

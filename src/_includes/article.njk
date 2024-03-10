@@ -15,7 +15,7 @@
         |
         <span>Last Modified: {{ page.inputPath | lastCommitDate | htmlDateString }}</span>
       </div>
-      <article class="paragraph text-lg">{{ content | safe }}</article>
+      <article class="paragraph text-md">{{ content | safe }}</article>
     </div>
     {% include "components/footer.njk" %}
     <script src="{{ '/js/script.js' | url }}"></script>

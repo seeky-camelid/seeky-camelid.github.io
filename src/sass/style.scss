@@ -53,8 +53,19 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  
 
+  pre {
+      overflow-x: auto; /* Adds horizontal scrollbar if content is too wide */
+      word-break: break-all; /* Breaks the words at the edge of the container */
+      white-space: pre-wrap; /* Makes the text inside the <pre> tag wrap, similar to how text in <p> wraps */
+      background-color: #f5f5f5; /* Light grey background */
+      border: 1px solid #ccc; /* Grey border */
+      padding: 10px; /* Padding around the text */
+  }
+  code {
+    font-family: 'Courier New', Courier, monospace; /* Monospace font */
+    color: #333; /* Dark grey text */
+  }
   nav {
     padding: 0.75rem;
     justify-content: space-between;
@@ -106,7 +117,7 @@ body {
     a {
       color: #14847E;
       text-decoration: none;
-      
+
       &:hover {
         text-decoration: underline;
       }
@@ -121,7 +132,7 @@ body {
     a {
       color: #14847E;
       text-decoration: none;
-      
+
       &:hover {
         text-decoration: underline;
       }
@@ -139,7 +150,7 @@ body {
     a:hover {
         text-decoration: none;
       }
-    
+
   }
 
   .blog-single {
@@ -204,7 +215,7 @@ body {
     font-weight:100;
     color: gray;
     line-height: 1.0rem; }
-  
+
   .paragraph {
     text-align: justify;
   }
@@ -232,7 +243,7 @@ body {
     .article-wrapper {
       width: 80%;
     }
-  
+
     footer {
       width: 90%;
     }
